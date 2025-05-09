@@ -6,9 +6,7 @@
       "use": "@vercel/next"
     }
   ],
-  "framework": {
-    "version": "15.x"
-  },
+  "framework": "nextjs",
   "routes": [
     {
       "src": "/(.*)",
@@ -47,4 +45,4 @@
       ]
     }
   ]
-} 
+}
