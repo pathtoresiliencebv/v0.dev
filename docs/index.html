@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Primary Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>v0.dev • AI Chat & Dev Platform • Hosted on GitHub Pages</title>
+  <meta name="description" content="v0.dev is a next-gen AI chat application and development workspace powered by Together AI & Groq. Prototype, iterate, and deploy production apps—directly from GitHub Pages." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://likhonsdev.github.io/v0.dev/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="v0.dev • AI Chat & Dev Platform" />
+  <meta property="og:description" content="Next-gen AI chat & dev workspace powered by Together AI & Groq. Build, version, and deploy apps with one click." />
+  <meta property="og:url" content="https://likhonsdev.github.io/v0.dev/" />
+  <meta property="og:image" content="https://likhonsdev.github.io/v0.dev/assets/social-share.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="v0.dev • AI Chat & Dev Platform" />
+  <meta name="twitter:description" content="Build, version, and deploy AI-powered apps directly from GitHub Pages—powered by Together AI & Groq." />
+  <meta name="twitter:image" content="https://likhonsdev.github.io/v0.dev/assets/social-share.png" />
+
+  <!-- Styles -->
+  <style>
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; margin: 0; padding: 0 1rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+    header, section, footer { margin: 2rem 0; }
+    h1, h2, h3 { font-weight: 600; }
+    code, pre { background: #f5f5f5; padding: .2rem .4rem; border-radius: 4px; font-family: monospace; }
+    .badge { margin-right: .5rem; vertical-align: middle; }
+    .callout { border-left: 4px solid #007ACC; background: #f0f8ff; padding: .5rem 1rem; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .5rem; text-align: left; }
+    th { background: #f9fafb; }
+    a.button { display: inline-block; background: #007ACC; color: #fff; padding: .5rem 1rem; border-radius: 4px; text-decoration: none; }
+    footer { font-size: 0.875rem; color: #555; text-align: center; margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>v0.dev AI Chat & Development Platform</h1>
+    <p><strong>Next-gen AI chat application and workspace</strong> powered by Together AI & Groq • Built with Next.js, TypeScript, and Tailwind CSS</p>
+    <!-- Badges -->
+    <p>
+      <img class="badge" src="https://img.shields.io/github/stars/likhonsdev/v0.dev?style=flat-square&color=blue" alt="GitHub stars">
+      <img class="badge" src="https://img.shields.io/github/forks/likhonsdev/v0.dev?style=flat-square&color=blue" alt="GitHub forks">
+      <img class="badge" src="https://img.shields.io/github/issues/likhonsdev/v0.dev?style=flat-square&color=blue" alt="GitHub issues">
+      <img class="badge" src="https://img.shields.io/github/license/likhonsdev/v0.dev?style=flat-square&color=blue" alt="License">
+    </p>
+    <p>
+      <a class="button" href="https://github.com/likhonsdev/v0.dev">View on GitHub</a>
+      <a class="button" href="https://v0.dev">Live Demo</a>
+    </p>
+  </header>
+
+  <section>
+    <h2>✨ Key Features</h2>
+    <ul>
+      <li>💬 <strong>Real-Time AI Concierge</strong>: Streaming chat sessions with Together AI & Groq models.</li>
+      <li>🔄 <strong>Model Switching</strong>: Instantly toggle between Llama-3, Mixtral, DeepSeek Coder & more.</li>
+      <li>📜 <strong>Version History & Diffing</strong>: Track, compare, and restore every generation.</li>
+      <li>🛠️ <strong>Advanced Code Editor</strong>: Monaco editor with syntax highlighting & inline AI suggestions.</li>
+      <li>📁 <strong>Project Management</strong>: Multiple workspaces, file trees, and deployment targets.</li>
+      <li>🚀 <strong>One-Click Deployment</strong>: Push to Vercel or any Next.js host.</li>
+      <li>🌈 <strong>Responsive UI</strong>: Tailwind CSS + shadcn/ui components for mobile & desktop.</li>
+      <li>🔧 <strong>TypeScript & Tailwind</strong>: Type-safe code and utility-first styling.</li>
+      <li>⚙️ <strong>Architecture Insights</strong>: AI-driven system design recommendations.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🚀 Quick Start</h2>
+    <ol>
+      <li><strong>Clone the repo</strong><br>
+        <pre><code>git clone https://github.com/likhonsdev/v0.dev.git
+cd v0.dev</code></pre>
+      </li>
+      <li><strong>Install dependencies</strong><br>
+        <pre><code>npm install
+# or
+yarn install</code></pre>
+      </li>
+      <li><strong>Configure environment</strong><br>
+        Create <code>.env.local</code>:
+        <pre><code>TOGETHER_API_KEY=your-together-key
+GROQ_API_KEY=your-groq-key
+NEXTAUTH_SECRET=supersecret
+DATABASE_URL=postgresql://user:pass@host:port/db</code></pre>
+      </li>
+      <li><strong>Run the server</strong><br>
+        <pre><code>npm run dev
+# or
+yarn dev</code></pre>
+        Then open <a href="http://localhost:3000">localhost:3000</a>.
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>📂 Project Structure</h2>
+    <pre><code>v0.dev/
+├── app/              # Next.js App Router
+│   ├── api/          # Serverless functions
+│   ├── chat/         # Chat UI & logic
+│   ├── project/      # Project pages
+│   └── components/   # Page-specific React components
+├── components/       # Shared shadcn/ui components
+├── lib/              # AI engine wrappers & utils
+├── public/           # Static assets
+├── styles/           # Global styles
+├── .env.local        # API keys & secrets
+└── README.md         # Project overview
+</code></pre>
+  </section>
+
+  <section>
+    <h2>❤️ Contribute</h2>
+    <p>We're open to pull requests! Whether it's a feature, bug fix, or a documentation update—contributions are always welcome.</p>
+    <ul>
+      <li>Open issues for bugs or feature suggestions</li>
+      <li>Fork the repo, create a new branch, and submit a PR</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Built with ❤️ by <a href="https://github.com/likhonsdev">Likhon Sheikh</a> • Hosted on <a href="https://pages.github.com/">GitHub Pages</a> • MIT Licensed</p>
+    <p><a href="https://likhon.org">likhon.org</a> • <a href="https://flashusdtsender.xyz">FlashUSDT</a></p>
+  </footer>
+
+</body>
+</html>
