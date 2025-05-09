@@ -24,7 +24,7 @@ import {
   TrashIcon,
   PencilIcon,
   ArrowUpRightIcon
-} from 'lucide-react'
+} from '@/components/ui/icons'
 
 export interface Project {
   id: string

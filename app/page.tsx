@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ProjectCard, Project } from '@/app/components/project-card'
-import { PlusIcon, SearchIcon } from 'lucide-react'
+import { PlusIcon, SearchIcon } from '@/components/ui/icons'
 
 // Sample projects data
 const sampleProjects: Project[] = [
