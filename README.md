@@ -159,5 +159,3 @@ Licensed under the **MIT License**.
 * 📊 Analytics dashboard for token usage
 * 🗣️ Voice input/output support
 * 🧠 Multi-turn memory & RAG
-
-Built with ❤️ by [Likhon S.](https://likhon.org)
