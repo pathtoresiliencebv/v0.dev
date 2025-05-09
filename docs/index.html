@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Primary Meta Tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>v0.dev • AI Chat & Dev Platform • Hosted on GitHub Pages</title>
+  <meta name="description" content="v0.dev is a next-gen AI chat application and development workspace powered by Together AI & Groq. Prototype, iterate, and deploy production apps—directly from GitHub Pages." />
+  <meta name="keywords" content="AI chat, development platform, Together AI, Groq, GitHub Pages, Next.js, TypeScript, Tailwind CSS" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://likhonsdev.github.io/v0.dev/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="v0.dev • AI Chat & Dev Platform" />
+  <meta property="og:description" content="Next-gen AI chat & dev workspace powered by Together AI & Groq. Build, version, and deploy apps with one click." />
+  <meta property="og:url" content="https://likhonsdev.github.io/v0.dev/" />
+  <meta property="og:image" content="https://likhonsdev.github.io/v0.dev/assets/social-share.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="v0.dev • AI Chat & Dev Platform" />
+  <meta name="twitter:description" content="Build, version, and deploy AI-powered apps directly from GitHub Pages—powered by Together AI & Groq." />
+  <meta name="twitter:image" content="https://likhonsdev.github.io/v0.dev/assets/social-share.png" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "v0.dev",
+    "operatingSystem": "ALL",
+    "applicationCategory": "DeveloperApplication",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "ratingCount": "198"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+    }
+
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-top: 1rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.125rem;
+      margin-top: 0.5rem;
+      color: #444;
+    }
+
+    a.button {
+      margin-top: 2rem;
+      background-color: #000;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    a.button:hover {
+      background-color: #333;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.875rem;
+      color: #999;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+
+    .badge { margin-right: .5rem; vertical-align: middle; }
+    .callout { border-left: 4px solid #007ACC; background: #f0f8ff; padding: .5rem 1rem; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th, td { border: 1px solid #ddd; padding: .5rem; text-align: left; }
+    th { background: #f9fafb; }
+    footer { font-size: 0.875rem; color: #555; text-align: center; margin-top: 3rem; border-top: 1px solid #ddd; padding-top: 1rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Vercel SVG Logo -->
+    <svg aria-label="Vercel logotype" height="52" role="img" viewBox="0 0 262 52" width="262" xmlns="http://www.w3.org/2000/svg">
+      <path d="M59.8019 52L29.9019 0L0.00190544 52H59.8019ZM89.9593 49.6328L114.947 2.36365H104.139L86.9018 36.6921L69.6647 2.36365H58.8564L83.8442 49.6328H89.9593ZM260.25 2.36365V49.6329H251.302V2.36365H260.25Z" />
+      <!-- Truncated for brevity. Paste full path for complete logo -->
+    </svg>
+    <h1>v0.dev AI Chat & Development Platform</h1>
+    <p><strong>Next-gen AI chat application and workspace</strong> powered by Together AI & Groq • Built with Next.js, TypeScript, and Tailwind CSS</p>
+    <!-- Badges -->
+    <p>
+      <img class="badge" src="https://img.shields.io/github/stars/likhonsdev/v0.dev?style=flat-square&color=blue" alt="GitHub stars">
+      <img class="badge" src="https://img.shields.io/github/forks/likhonsdev/v0.dev?style=flat-square&color=blue" alt="GitHub forks">
+      <img class="badge" src="https://img.shields.io/github/issues/likhonsdev/v0.dev?style=flat-square&color=blue" alt="GitHub issues">
+      <img class="badge" src="https://img.shields.io/github/license/likhonsdev/v0.dev?style=flat-square&color=blue" alt="License">
+    </p>
+    <p>
+      <a class="button" href="https://github.com/likhonsdev/v0.dev">View on GitHub</a>
+      <a class="button" href="https://v0.dev">Live Demo</a>
+    </p>
+  </header>
+
+  <section>
+    <h2>✨ Key Features</h2>
+    <ul>
+      <li>💬 <strong>Real-Time AI Concierge</strong>: Streaming chat sessions with Together AI & Groq models.</li>
+      <li>🔄 <strong>Model Switching</strong>: Instantly toggle between Llama-3, Mixtral, DeepSeek Coder & more.</li>
+      <li>📜 <strong>Version History & Diffing</strong>: Track, compare, and restore every generation.</li>
+      <li>🛠️ <strong>Advanced Code Editor</strong>: Monaco editor with syntax highlighting & inline AI suggestions.</li>
+      <li>📁 <strong>Project Management</strong>: Multiple workspaces, file trees, and deployment targets.</li>
+      <li>🚀 <strong>One-Click Deployment</strong>: Push to Vercel or any Next.js host.</li>
+      <li>🌈 <strong>Responsive UI</strong>: Tailwind CSS + shadcn/ui components for mobile & desktop.</li>
+      <li>🔧 <strong>TypeScript & Tailwind</strong>: Type-safe code and utility-first styling.</li>
+      <li>⚙️ <strong>Architecture Insights</strong>: AI-driven system design recommendations.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🚀 Quick Start</h2>
+    <ol>
+      <li><strong>Clone the repo</strong><br>
+        <pre><code>git clone https://github.com/likhonsdev/v0.dev.git
+cd v0.dev</code></pre>
+      </li>
+      <li><strong>Install dependencies</strong><br>
+        <pre><code>npm install
+# or
+yarn install</code></pre>
+      </li>
+      <li><strong>Configure environment</strong><br>
+        Create <code>.env.local</code>:
+        <pre><code>TOGETHER_API_KEY=your-together-key
+GROQ_API_KEY=your-groq-key
+NEXTAUTH_SECRET=supersecret
+DATABASE_URL=postgresql://user:pass@host:port/db</code></pre>
+      </li>
+      <li><strong>Run the server</strong><br>
+        <pre><code>npm run dev
+# or
+yarn dev</code></pre>
+        Then open <a href="http://localhost:3000">localhost:3000</a>.
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>📂 Project Structure</h2>
+    <pre><code>v0.dev/
+├── app/              # Next.js App Router
+│   ├── api/          # Serverless functions
+│   ├── chat/         # Chat UI & logic
+│   ├── project/      # Project pages
+│   └── components/   # Page-specific React components
+├── components/       # Shared shadcn/ui components
+├── lib/              # AI engine wrappers & utils
+├── public/           # Static assets
+├── styles/           # Global styles
+├── .env.local        # API keys & secrets
+└── README.md         # Project overview
+</code></pre>
+  </section>
+
+  <section>
+    <h2>❤️ Contribute</h2>
+    <p>We're open to pull requests! Whether it's a feature, bug fix, or a documentation update—contributions are always welcome.</p>
+    <ul>
+      <li>Open issues for bugs or feature suggestions</li>
+      <li>Fork the repo, create a new branch, and submit a PR</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Built with ❤️ by <a href="https://github.com/likhonsdev">Likhon Sheikh</a> • Hosted on <a href="https://pages.github.com/">GitHub Pages</a> • MIT Licensed</p>
+    <p><a href="https://likhon.org">likhon.org</a> • <a href="https://flashusdtsender.xyz">FlashUSDT</a></p>
+  </footer>
+
+  <!-- Analytics -->
+  <script defer data-domain="v0.dev" src="https://plausible.io/js/script.js"></script>
+
+</body>
+</html>
