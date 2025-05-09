@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Updated configuration for Next.js 15+
+  serverExternalPackages: [],
+  experimental: {
+    // Remove outdated options
+  },
 };
 
 export default nextConfig;
