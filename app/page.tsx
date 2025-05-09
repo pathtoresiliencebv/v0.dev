@@ -1,121 +1,221 @@
 import Link from "next/link";
-import ChatComponent from "./components/ui/ChatComponent";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { V0Logo } from "./components/logo";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between text-sm lg:flex">
-        <div className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4">
-          <p className="font-mono font-bold">v0.dev - AI-Powered Interface Builder</p>
+    <div className="flex flex-col min-h-screen">
+      {/* Hero Section */}
+      <section className="py-12 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-6">
+                <V0Logo className="w-10 h-10" />
+                <h1 className="text-3xl font-bold tracking-tight">v0</h1>
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4">
+                Your AI Pair Programmer
+              </h2>
+              <p className="text-xl text-muted-foreground mb-8">
+                v0 is a pair programmer that lets you describe your ideas in natural language 
+                and generates both the code and UI for your project.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link href="/project/new">
+                  <Button size="lg" className="w-full sm:w-auto">Get Started</Button>
+                </Link>
+                <Link href="/faq">
+                  <Button size="lg" variant="outline" className="w-full sm:w-auto">Learn More</Button>
+                </Link>
+              </div>
+            </div>
+            <div className="relative rounded-xl overflow-hidden border shadow-xl bg-zinc-950">
+              <div className="bg-zinc-900 p-4 rounded-t-lg flex items-center">
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="mx-auto text-zinc-400 text-sm">v0.dev</div>
+              </div>
+              <div className="p-6">
+                <div className="mb-4">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-semibold">You</div>
+                    <p className="px-4 py-2 rounded-xl bg-zinc-900 text-zinc-100">Create a landing page for a tech startup</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-semibold">v0</div>
+                  <div className="px-4 py-2 rounded-xl bg-blue-600/10 border border-blue-600/20 text-blue-100">
+                    Here&apos;s a modern landing page for your tech startup...
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by{" "}
-            <img
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              width={100}
-              height={24}
-              className="dark:invert"
-            />
-          </a>
-        </div>
-      </div>
+      </section>
 
-      <div className="flex flex-col items-center justify-center w-full">
-        <h1 className="text-4xl font-bold mb-8 text-center">
-          Build with AI-Powered Components
-        </h1>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 w-full max-w-5xl">
-          <Link 
-            href="/chat" 
-            className="p-6 border rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <h2 className="text-2xl font-semibold mb-2">Chat Interface</h2>
-            <p>Interactive chat powered by multiple AI models</p>
-          </Link>
+      {/* What You Can Build Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">You can use v0 to build anything</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              From a basic landing page to a full-stack app, v0 helps you bring your ideas to life
+            </p>
+          </div>
           
-          <Link 
-            href="/workflow/sequential" 
-            className="p-6 border rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <h2 className="text-2xl font-semibold mb-2">Sequential Workflow</h2>
-            <p>Chain multiple AI tasks for step-by-step processing</p>
-          </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Landing pages</CardTitle>
+                <CardDescription>Create beautiful, responsive landing pages</CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Full-stack apps</CardTitle>
+                <CardDescription>Build complete applications with frontend and backend</CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Blogs</CardTitle>
+                <CardDescription>Design and implement content-focused websites</CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Chatbots</CardTitle>
+                <CardDescription>Implement conversational interfaces</CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Data analysis</CardTitle>
+                <CardDescription>Visualize and interpret complex datasets</CardDescription>
+              </CardHeader>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Customer support</CardTitle>
+                <CardDescription>Create systems to help customers</CardDescription>
+              </CardHeader>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Getting Started Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold mb-6 text-center">Getting started with v0</h2>
+          <p className="text-lg mb-8 text-center max-w-3xl mx-auto">
+            v0 is free to use and you can get started by creating an account on v0.dev. v0 offers additional Premium and Ultra plans.
+          </p>
           
-          <Link 
-            href="/workflow/parallel" 
-            className="p-6 border rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <h2 className="text-2xl font-semibold mb-2">Parallel Workflow</h2>
-            <p>Run AI tasks in parallel for better results</p>
-          </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div className="bg-muted/30 p-6 rounded-lg">
+              <h3 className="text-2xl font-semibold mb-4">Creating projects</h3>
+              <p className="mb-4">
+                Creating a project in v0 automatically creates a corresponding Vercel project 
+                within your logged in scope.
+              </p>
+              
+              <h4 className="font-medium mb-2">To create a new project:</h4>
+              <ol className="list-decimal list-inside space-y-1 mb-6">
+                <li>Open the sidebar</li>
+                <li>Click on Projects</li>
+                <li>Click on New Project</li>
+                <li>Enter a project name</li>
+                <li>Click Create Project</li>
+              </ol>
+            </div>
+            
+            <div className="bg-muted/30 p-6 rounded-lg">
+              <h3 className="text-2xl font-semibold mb-4">Deploying to Vercel</h3>
+              <p className="mb-4">
+                When you are happy with your generation, click the Deploy button 
+                in the top-right corner of the v0 interface.
+              </p>
+              <p className="mb-4">
+                When the deployment is built, a toast notification will appear. 
+                Click on the notification to view your live deployment.
+              </p>
+              <div className="flex justify-center">
+                <Button>Deploy to Vercel</Button>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        <div className="w-full max-w-5xl mb-16">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Try the AI Chat</h2>
-          <ChatComponent />
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-muted/50">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold mb-12 text-center">Key Features</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-background p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Version Control</h3>
+              <p>
+                Each time v0 updates a code block, it creates a new version. 
+                You can restore previous versions anytime.
+              </p>
+            </div>
+            
+            <div className="bg-background p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">Integrations</h3>
+              <p>
+                Connect with third-party services like Supabase, Neon, 
+                Grok, and more to enhance your projects.
+              </p>
+            </div>
+            
+            <div className="bg-background p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold mb-4">AI-Powered</h3>
+              <p>
+                Use natural language to describe what you want to build,
+                and v0 turns your ideas into working code.
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
-        <a
-          href="https://vercel.com/docs/concepts/ai/ai-sdk"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            AI SDK{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              →
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Vercel&apos;s AI SDK to build AI-powered applications.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              →
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore the Next.js + AI templates for your projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              →
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Instantly deploy your Next.js site with AI to Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      </section>
+      
+      {/* Footer */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold mb-8 text-center">More Resources</h2>
+          
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="#">
+              <Button variant="outline">v0 Documentation</Button>
+            </Link>
+            <Link href="#">
+              <Button variant="outline">Example Creations</Button>
+            </Link>
+            <Link href="#">
+              <Button variant="outline">FAQ</Button>
+            </Link>
+            <Link href="#">
+              <Button variant="outline">AI Policy</Button>
+            </Link>
+            <Link href="#">
+              <Button variant="outline">Vercel Community</Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
