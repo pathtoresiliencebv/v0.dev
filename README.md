@@ -1,7 +1,7 @@
 # v0.dev AI Chat
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/likhonsdev/v0.dev/refs/heads/main/public/IMG_8946.png" alt="v0.dev Logo" width="180" height="180" style="border-radius: 10px;">
+  <img src="https://raw.githubusercontent.com/likhonsdev/v0.dev/refs/heads/main/public/IMG_8943.png" alt="v0.dev Logo" width="180" height="180" style="border-radius: 10px;">
   
   <p align="center">
     <a href="https://github.com/likhonsdev/v0.dev/stargazers">
