@@ -1,59 +1,59 @@
-# v0.dev - AI Chat Generative UI
+# v0.dev AI Chat
 
-**v0.dev** is a modern, full-stack, AI-powered chat UI application designed for developers who want seamless integration with powerful LLM providers like **Together AI** and **Groq**. Built with **Next.js**, **TypeScript**, and **Tailwind CSS**, it delivers real-time, responsive chat capabilities with a beautiful and intuitive interface.
+A modern AI chat application and development platform powered by Together AI and Groq, built with Next.js, TypeScript, and Tailwind CSS. Similar to v0.dev, it allows you to generate UI, ask questions, debug code, and much more.
 
----
+## Features
 
-## 🚀 Features
+- 🤖 Chat with powerful LLMs from multiple providers
+- 🔄 Switch between models from Together AI and Groq
+- 💬 Real-time chat interface with message history
+- 📝 Version history for code generations
+- 🖥️ Code editor with syntax highlighting
+- 📁 Project management system
+- 🚀 Deployment capabilities
+- 🌈 Modern UI with Tailwind CSS and shadcn/ui components
+- 📱 Fully responsive design
+- 🔧 Built with Next.js and TypeScript
 
-* 🧠 **LLM Switching** — Toggle between Together AI and Groq models on the fly
-* 💬 **Real-Time Chat** — Sleek, reactive message handling and history
-* 🎨 **Modern Design** — Built with shadcn/ui + Tailwind CSS for ultimate theming
-* 🧩 **Component-Driven** — Modular, reusable code structure
-* 🌐 **Multilingual Support** — Smart response localization matching user input
-* 🧠 **Chain of Thought (CoT)** — Enhanced reasoning before responding using XML-style encapsulation
-* 📱 **Responsive Layout** — Fully optimized for mobile, tablet, and desktop
-* 🛠️ **Type-Safe** — Leveraging TypeScript for strong developer confidence
-* 🌈 **Enhanced Markdown & MDX** — Rich, dynamic documentation support with special components
-
----
-
-## 🧰 Tech Stack
-
-* **Next.js 14 (App Router)**
-* **TypeScript**
-* **Tailwind CSS + shadcn/ui**
-* **Together AI SDK**
-* **Groq API SDK**
-
----
-
-## 📦 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-* Node.js 18+
-* npm or yarn
-* API keys from [Together AI](https://together.ai) and [Groq](https://console.groq.com)
+- Node.js 18+ 
+- npm or yarn
+- API keys for Together AI and Groq
 
 ### Installation
+
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/likhonsdev/v0.dev.git
 cd v0.dev
-npm install  # or yarn install
 ```
 
-### Environment Variables
+2. Install dependencies:
 
-Create a `.env` file:
+```bash
+npm install
+# or
+yarn install
+```
 
-```env
+3. Set up environment variables:
+
+Create a `.env` file in the root directory and add your API keys:
+
+```
 TOGETHER_API_KEY=your-together-api-key
 GROQ_API_KEY=your-groq-api-key
 ```
 
-### Run Dev Server
+You can get these API keys by signing up at:
+- [Together AI](https://together.ai)
+- [Groq](https://console.groq.com)
+
+4. Start the development server:
 
 ```bash
 npm run dev
@@ -61,101 +61,69 @@ npm run dev
 yarn dev
 ```
 
-Now open [http://localhost:3000](http://localhost:3000) in your browser.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
 
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 v0.dev/
-├── app/                  # Next.js pages & routing
-│   ├── chat/             # Chat UI & server logic
-│   ├── components/       # Page-level components
-│   ├── hooks/            # Custom React hooks
-│   └── lib/              # Local utilities
-├── components/           # Shared UI elements
-│   └── ui/               # shadcn/ui components
-├── lib/                  # Global utility functions
-├── public/               # Static assets (images, icons)
-└── styles/               # Tailwind and custom CSS
+├── app/                   # Next.js app directory
+│   ├── chat/              # Chat page and API routes
+│   ├── components/        # UI components
+│   │   └── ui/            # UI components specific to app
+│   ├── hooks/             # Custom React hooks
+│   ├── project/           # Project pages
+│   └── lib/               # Utility functions and helpers
+├── components/            # Shared UI components
+│   └── ui/                # shadcn/ui components
+├── lib/                   # Global utility functions
+├── public/                # Static assets
+└── ...
 ```
 
----
+## Version History
 
-## 🤖 Supported Models
+Each time v0 updates a code block from a message, it creates a new version. Non-message actions (such as editing code or modifying files directly) do not generate new versions.
 
-### Together AI
+Restoring an old version creates a new, most recent version using the restored code to maintain a linear version history.
 
-* Llama 3.1 8B (Free Tier)
-* Llama 3.1 70B
-* Mixtral 8x7B
-* DeepSeek Coder 33B
+When deploying, the latest version of the code is used. If you want to deploy a previous version, you can restore it and then deploy.
 
-### Groq
+## Projects
 
-* Llama 3 8B
-* Llama 3 70B
-* Mixtral 8x7B
-* Gemma 7B
+Creating a project automatically sets up everything you need to start developing. Projects allow you to:
 
----
+1. Organize your work into separate spaces
+2. Track version history of your code
+3. Deploy your applications directly
+4. Share and collaborate with others
 
-## 🌍 Deployment
+## Available Models
 
-Deploy with a single click on Vercel:
+### Together AI Models
+- Llama 3.1 8B (Free)
+- Llama 3.1 70B
+- Mixtral 8x7B
+- DeepSeek Coder 33B
+
+### Groq Models
+- Llama 3 8B
+- Llama 3 70B
+- Mixtral 8x7B
+- Gemma 7B
+
+## Deployment
+
+This application can be deployed on Vercel or any other Next.js compatible hosting service.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flikhonsdev%2Fv0.dev)
 
-> Ensure your environment variables are set on Vercel for seamless API communication.
+Remember to set up your environment variables on your deployment platform.
 
----
+## Contributing
 
-## 🧠 MDX Features
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-Leverage extended MDX syntax and custom components:
+## License
 
-* `<LinearProcessFlow />` – Ideal for visual walkthroughs
-* `<Quiz />` – Interactive learning/testing
-* `<math>` – Inline LaTeX-style math rendering
-* `<Thinking />` – Encapsulates internal reasoning before output
-
-### Code Block Enhancements
-
-````tsx
-```tsx project="v0.dev" file="components/Chat.tsx" type="react"
-```
-````
-
-Other formats:
-
-* `nodejs`, `html`, `markdown`, `mermaid`, `python`, etc.
-
----
-
-## 🧪 Advanced Techniques
-
-* **Chain of Thought Reasoning (CoT)**: System processes logic before generating response.
-* **Prompt Meta-Tagging**: Enhanced control over rendering & output.
-* **Multimodal Input-Awareness**: Supports complex structured queries.
-
----
-
-## 🤝 Contributing
-
-We welcome PRs! Fork the repo, create a feature branch, and submit your changes.
-
----
-
-## 📄 License
-
-Licensed under the **MIT License**.
-
----
-
-## 🎯 Roadmap Ideas
-
-* 🔌 Plugin system for model extensions
-* 📊 Analytics dashboard for token usage
-* 🗣️ Voice input/output support
-* 🧠 Multi-turn memory & RAG
+This project is licensed under the MIT License - see the LICENSE file for details.
