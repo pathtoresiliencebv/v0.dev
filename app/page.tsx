@@ -333,13 +333,16 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-8 text-center">More Resources</h2>
           
           <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/components-showcase">
+              <Button variant="outline">Components Showcase</Button>
+            </Link>
             <Link href="#">
               <Button variant="outline">v0 Documentation</Button>
             </Link>
             <Link href="#">
               <Button variant="outline">Example Creations</Button>
             </Link>
-            <Link href="#">
+            <Link href="/faq">
               <Button variant="outline">FAQ</Button>
             </Link>
             <Link href="#">
