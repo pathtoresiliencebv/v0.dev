@@ -2,54 +2,7 @@
 
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-
-// Custom Geist-style icons
-function ChevronRightIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.5"
-      className={className}
-    >
-      <path d="M6.5 3.5L11 8l-4.5 4.5" />
-    </svg>
-  )
-}
-
-function CheckIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.5"
-      className={className}
-    >
-      <path d="M2.5 8l3.5 3.5 7.5-7" />
-    </svg>
-  )
-}
-
-function CircleIcon({ className = "h-2 w-2 fill-current" }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 16 16"
-      className={className}
-    >
-      <circle cx="8" cy="8" r="8" />
-    </svg>
-  )
-}
-
+import { ChevronRightIcon, CheckIcon, CircleIcon } from "@/components/ui/icons"
 import { cn } from "@/lib/utils"
 
 const DropdownMenu = DropdownMenuPrimitive.Root
