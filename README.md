@@ -1,59 +1,59 @@
-# v0.dev
-v0 is a pair programmer that lets you describe your ideas in natural language and generates both the code and UI for your project. Anything you create with v0 can be deployed to Vercel.
+# v0.dev - AI Chat Generative UI
 
+**v0.dev** is a modern, full-stack, AI-powered chat UI application designed for developers who want seamless integration with powerful LLM providers like **Together AI** and **Groq**. Built with **Next.js**, **TypeScript**, and **Tailwind CSS**, it delivers real-time, responsive chat capabilities with a beautiful and intuitive interface.
 
-# v0.dev AI Chat
+---
 
-A modern AI chat application powered by Together AI and Groq, built with Next.js, TypeScript, and Tailwind CSS.
+## 🚀 Features
 
-## Features
+* 🧠 **LLM Switching** — Toggle between Together AI and Groq models on the fly
+* 💬 **Real-Time Chat** — Sleek, reactive message handling and history
+* 🎨 **Modern Design** — Built with shadcn/ui + Tailwind CSS for ultimate theming
+* 🧩 **Component-Driven** — Modular, reusable code structure
+* 🌐 **Multilingual Support** — Smart response localization matching user input
+* 🧠 **Chain of Thought (CoT)** — Enhanced reasoning before responding using XML-style encapsulation
+* 📱 **Responsive Layout** — Fully optimized for mobile, tablet, and desktop
+* 🛠️ **Type-Safe** — Leveraging TypeScript for strong developer confidence
+* 🌈 **Enhanced Markdown & MDX** — Rich, dynamic documentation support with special components
 
-- 🤖 Chat with powerful LLMs from multiple providers
-- 🔄 Switch between models from Together AI and Groq
-- 💬 Real-time chat interface with message history
-- 🌈 Modern UI with Tailwind CSS and shadcn/ui components
-- 📱 Fully responsive design
-- 🚀 Built with Next.js and TypeScript
+---
 
-## Getting Started
+## 🧰 Tech Stack
+
+* **Next.js 14 (App Router)**
+* **TypeScript**
+* **Tailwind CSS + shadcn/ui**
+* **Together AI SDK**
+* **Groq API SDK**
+
+---
+
+## 📦 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm or yarn
-- API keys for Together AI and Groq
+* Node.js 18+
+* npm or yarn
+* API keys from [Together AI](https://together.ai) and [Groq](https://console.groq.com)
 
 ### Installation
 
-1. Clone the repository:
-
 ```bash
-git clone https://github.com/yourusername/v0-dev.git
-cd v0-dev
+git clone https://github.com/likhonsdev/v0.dev.git
+cd v0.dev
+npm install  # or yarn install
 ```
 
-2. Install dependencies:
+### Environment Variables
 
-```bash
-npm install
-# or
-yarn install
-```
+Create a `.env` file:
 
-3. Set up environment variables:
-
-Create a `.env` file in the root directory and add your API keys:
-
-```
+```env
 TOGETHER_API_KEY=your-together-api-key
 GROQ_API_KEY=your-groq-api-key
 ```
 
-You can get these API keys by signing up at:
-- [Together AI](https://together.ai)
-- [Groq](https://console.groq.com)
-
-4. Start the development server:
+### Run Dev Server
 
 ```bash
 npm run dev
@@ -61,50 +61,103 @@ npm run dev
 yarn dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+Now open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```
 v0.dev/
-├── app/                   # Next.js app directory
-│   ├── chat/              # Chat page and API routes
-│   ├── components/        # UI components
-│   ├── hooks/             # Custom React hooks
-│   └── lib/               # Utility functions and helpers
-├── components/            # Shared UI components
-│   └── ui/                # shadcn/ui components
-├── lib/                   # Global utility functions
-├── public/                # Static assets
-└── ...
+├── app/                  # Next.js pages & routing
+│   ├── chat/             # Chat UI & server logic
+│   ├── components/       # Page-level components
+│   ├── hooks/            # Custom React hooks
+│   └── lib/              # Local utilities
+├── components/           # Shared UI elements
+│   └── ui/               # shadcn/ui components
+├── lib/                  # Global utility functions
+├── public/               # Static assets (images, icons)
+└── styles/               # Tailwind and custom CSS
 ```
 
-## Available Models
+---
 
-### Together AI Models
-- Llama 3.1 8B (Free)
-- Llama 3.1 70B
-- Mixtral 8x7B
-- DeepSeek Coder 33B
+## 🤖 Supported Models
 
-### Groq Models
-- Llama 3 8B
-- Llama 3 70B
-- Mixtral 8x7B
-- Gemma 7B
+### Together AI
 
-## Deployment
+* Llama 3.1 8B (Free Tier)
+* Llama 3.1 70B
+* Mixtral 8x7B
+* DeepSeek Coder 33B
 
-This application can be deployed on Vercel, Netlify, or any other Next.js compatible hosting service.
+### Groq
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fv0-dev)
+* Llama 3 8B
+* Llama 3 70B
+* Mixtral 8x7B
+* Gemma 7B
 
-Remember to set up your environment variables on your deployment platform.
+---
 
-## Contributing
+## 🌍 Deployment
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Deploy with a single click on Vercel:
 
-## License
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flikhonsdev%2Fv0.dev)
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+> Ensure your environment variables are set on Vercel for seamless API communication.
+
+---
+
+## 🧠 MDX Features
+
+Leverage extended MDX syntax and custom components:
+
+* `<LinearProcessFlow />` – Ideal for visual walkthroughs
+* `<Quiz />` – Interactive learning/testing
+* `<math>` – Inline LaTeX-style math rendering
+* `<Thinking />` – Encapsulates internal reasoning before output
+
+### Code Block Enhancements
+
+````tsx
+```tsx project="v0.dev" file="components/Chat.tsx" type="react"
+```
+````
+
+Other formats:
+
+* `nodejs`, `html`, `markdown`, `mermaid`, `python`, etc.
+
+---
+
+## 🧪 Advanced Techniques
+
+* **Chain of Thought Reasoning (CoT)**: System processes logic before generating response.
+* **Prompt Meta-Tagging**: Enhanced control over rendering & output.
+* **Multimodal Input-Awareness**: Supports complex structured queries.
+
+---
+
+## 🤝 Contributing
+
+We welcome PRs! Fork the repo, create a feature branch, and submit your changes.
+
+---
+
+## 📄 License
+
+Licensed under the **MIT License**.
+
+---
+
+## 🎯 Roadmap Ideas
+
+* 🔌 Plugin system for model extensions
+* 📊 Analytics dashboard for token usage
+* 🗣️ Voice input/output support
+* 🧠 Multi-turn memory & RAG
+
+Built with ❤️ by [Likhon S.](https://likhon.org)
