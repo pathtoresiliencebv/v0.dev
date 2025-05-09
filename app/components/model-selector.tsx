@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { ChevronDownIcon } from 'lucide-react'
+import { ChevronDownIcon } from '@/components/ui/icons'
 import { getModelProvider } from '@/lib/utils'
 
 // Available models with their respective providers

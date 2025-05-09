@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { ArrowLeftIcon, Loader2Icon } from 'lucide-react'
+import { ArrowLeftIcon, Loader2Icon } from '@/components/ui/icons'
 import Link from 'next/link'
 
 export default function NewProjectPage() {

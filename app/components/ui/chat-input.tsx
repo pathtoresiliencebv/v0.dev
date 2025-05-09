@@ -2,7 +2,7 @@
 
 import { useState, useRef, FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
-import { SendIcon, Loader2 } from 'lucide-react'
+import { Loader2Icon, SendIcon } from '@/components/ui/icons'
 
 interface ChatInputProps {
   onSendMessage: (message: string) => void
@@ -72,7 +72,7 @@ export function ChatInput({
         className="rounded-full h-9 w-9 shrink-0"
       >
         {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Loader2Icon className="h-4 w-4" />
         ) : (
           <SendIcon className="h-4 w-4" />
         )}

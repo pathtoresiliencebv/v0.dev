@@ -362,4 +362,21 @@ export function CheckCircle2Icon({ className = "h-4 w-4" }: { className?: string
       <path d="M5.5 8l2 2 3-4" />
     </svg>
   )
+}
+
+export function SendIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      className={className}
+    >
+      <path d="M14.5 1.5l-6.5 13-2-5.5-5.5-2 13-6.5z" />
+    </svg>
+  )
 } 

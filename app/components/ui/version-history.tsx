@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { HistoryIcon, ChevronDownIcon, CheckCircle2Icon } from 'lucide-react'
+import { HistoryIcon, ChevronDownIcon, CheckCircle2Icon } from '@/components/ui/icons'
 
 export interface Version {
   id: string

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Message } from '@/app/hooks/use-chat'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { CheckIcon, CopyIcon } from 'lucide-react'
+import { CheckIcon, CopyIcon } from '@/components/ui/icons'
 
 interface ChatMessageProps {
   message: Message

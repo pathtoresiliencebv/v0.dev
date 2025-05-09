@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { CheckIcon, CopyIcon, DownloadIcon, FileIcon } from 'lucide-react'
+import { CheckIcon, CopyIcon, DownloadIcon, FileIcon } from '@/components/ui/icons'
 
 interface CodeEditorProps {
   fileName?: string

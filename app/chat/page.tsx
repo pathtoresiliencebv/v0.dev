@@ -6,7 +6,7 @@ import { ChatMessage } from '@/app/components/ui/chat-message'
 import { ChatInput } from '@/app/components/ui/chat-input'
 import { ModelSelector } from '@/app/components/model-selector'
 import { Button } from '@/components/ui/button'
-import { TrashIcon } from 'lucide-react'
+import { TrashIcon } from '@/components/ui/icons'
 
 export default function ChatPage() {
   const [selectedModel, setSelectedModel] = useState('meta-llama/Llama-3.1-8B-Instruct-Turbo-Free')

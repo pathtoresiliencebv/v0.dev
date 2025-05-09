@@ -2,7 +2,24 @@
 
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { XIcon } from "lucide-react"
+
+// Custom Geist-style XIcon
+function XIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      className={className}
+    >
+      <path d="M4 12L12 4M4 4l8 8" />
+    </svg>
+  )
+}
 
 import { cn } from "@/lib/utils"
 
