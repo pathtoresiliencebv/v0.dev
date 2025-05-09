@@ -4,7 +4,6 @@ const nextConfig: NextConfig = {
   // Optimized configuration for Vercel deployment
   poweredByHeader: false,
   reactStrictMode: true,
-  swcMinify: true,
   compress: true,
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -15,11 +14,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // Use Page Router settings when needed for API routes
-  experimental: {
-    instrumentationHook: true,
-    serverComponentsExternalPackages: [],
-  },
+  // Updated configuration for Next.js 15
+  serverExternalPackages: [],
 };
 
 export default nextConfig;
