@@ -1,129 +1,50 @@
-# v0.dev AI Chat
+# v0.dev
 
-A modern AI chat application and development platform powered by Together AI and Groq, built with Next.js, TypeScript, and Tailwind CSS. Similar to v0.dev, it allows you to generate UI, ask questions, debug code, and much more.
-
-## Features
-
-- 🤖 Chat with powerful LLMs from multiple providers
-- 🔄 Switch between models from Together AI and Groq
-- 💬 Real-time chat interface with message history
-- 📝 Version history for code generations
-- 🖥️ Code editor with syntax highlighting
-- 📁 Project management system
-- 🚀 Deployment capabilities
-- 🌈 Modern UI with Tailwind CSS and shadcn/ui components
-- 📱 Fully responsive design
-- 🔧 Built with Next.js and TypeScript
+This project uses Next.js 15 and is optimized for deployment on Vercel.
 
 ## Getting Started
 
-### Prerequisites
+First, set up your environment variables:
 
-- Node.js 18+ 
-- npm or yarn
-- API keys for Together AI and Groq
+1. Create a `.env.local` file with the required API keys (see .env.example)
 
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone https://github.com/likhonsdev/v0.dev.git
-cd v0.dev
-```
-
-2. Install dependencies:
+Then, run the development server:
 
 ```bash
 npm install
-# or
-yarn install
-```
-
-3. Set up environment variables:
-
-Create a `.env` file in the root directory and add your API keys:
-
-```
-TOGETHER_API_KEY=your-together-api-key
-GROQ_API_KEY=your-groq-api-key
-```
-
-You can get these API keys by signing up at:
-- [Together AI](https://together.ai)
-- [Groq](https://console.groq.com)
-
-4. Start the development server:
-
-```bash
 npm run dev
-# or
-yarn dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Project Structure
+## Deployment on Vercel
 
-```
-v0.dev/
-├── app/                   # Next.js app directory
-│   ├── chat/              # Chat page and API routes
-│   ├── components/        # UI components
-│   │   └── ui/            # UI components specific to app
-│   ├── hooks/             # Custom React hooks
-│   ├── project/           # Project pages
-│   └── lib/               # Utility functions and helpers
-├── components/            # Shared UI components
-│   └── ui/                # shadcn/ui components
-├── lib/                   # Global utility functions
-├── public/                # Static assets
-└── ...
-```
+The easiest way to deploy this app is to use the [Vercel Platform](https://vercel.com/new).
 
-## Version History
+1. Push your code to a GitHub repository
+2. Import the project to Vercel
+3. Add your environment variables in the Vercel dashboard
+4. Deploy
 
-Each time v0 updates a code block from a message, it creates a new version. Non-message actions (such as editing code or modifying files directly) do not generate new versions.
+## Environment Variables
 
-Restoring an old version creates a new, most recent version using the restored code to maintain a linear version history.
+The following environment variables are required:
 
-When deploying, the latest version of the code is used. If you want to deploy a previous version, you can restore it and then deploy.
+- `NEXT_PUBLIC_APP_URL`: Your application URL
+- `TOGETHER_API_KEY`: Your Together AI API key
+- `GROQ_API_KEY`: Your Groq API key
 
-## Projects
+## Features
 
-Creating a project automatically sets up everything you need to start developing. Projects allow you to:
+- Modern UI with React and Tailwind CSS
+- AI component generation
+- Optimized for performance
 
-1. Organize your work into separate spaces
-2. Track version history of your code
-3. Deploy your applications directly
-4. Share and collaborate with others
+## Learn More
 
-## Available Models
+To learn more about the technologies used:
 
-### Together AI Models
-- Llama 3.1 8B (Free)
-- Llama 3.1 70B
-- Mixtral 8x7B
-- DeepSeek Coder 33B
-
-### Groq Models
-- Llama 3 8B
-- Llama 3 70B
-- Mixtral 8x7B
-- Gemma 7B
-
-## Deployment
-
-This application can be deployed on Vercel or any other Next.js compatible hosting service.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Flikhonsdev%2Fv0.dev)
-
-Remember to set up your environment variables on your deployment platform.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Vercel Documentation](https://vercel.com/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [React Documentation](https://react.dev/)

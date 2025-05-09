@@ -1,10 +1,24 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Updated configuration for Next.js 15+
-  serverExternalPackages: [],
+  // Optimized configuration for Vercel deployment
+  poweredByHeader: false,
+  reactStrictMode: true,
+  swcMinify: true,
+  compress: true,
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
+  // Use Page Router settings when needed for API routes
   experimental: {
-    // Remove outdated options
+    instrumentationHook: true,
+    serverComponentsExternalPackages: [],
   },
 };
 
