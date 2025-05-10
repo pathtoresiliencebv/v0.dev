@@ -1,0 +1,36 @@
+# v0.dev LLM Usage Information
+
+This site uses Large Language Models (LLMs) to provide AI-powered functionalities. Below is information about our LLM usage:
+
+## Models Used
+
+- **Meta Llama 3.1 and 3.3**: Primary models for general chat and most AI workflows
+- **TogetherAI Models**: Used for various specialized tasks including code generation
+- **Groq Models**: Used for high-performance inference
+
+## Usage Scenarios
+
+- **Chat Interface**: Powers the conversational UI throughout the application
+- **Code Generation**: Assists in creating code examples and components
+- **Workflow Processing**: Used in workflow router, evaluator, parallel, and sequential processing
+
+## Data Policy
+
+- User inputs may be processed by these LLMs
+- We do not store conversation data permanently beyond what is necessary for the immediate session
+- Inputs are not used to train our models unless explicit consent is given
+
+## Limitations
+
+- LLM outputs should be reviewed for accuracy
+- Code generated may require additional testing and validation
+- The system may sometimes produce incorrect or incomplete information
+
+## Provider Information
+
+- Meta Llama models via TogetherAI
+- Various other models via TogetherAI and Groq
+
+For more information about our AI usage or to report issues, please contact us at support@example.com.
+
+Last updated: May 2025

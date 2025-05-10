@@ -1,0 +1,36 @@
+Contact: mailto:security@example.com
+Expires: 2025-05-10T23:00:00.000Z
+Preferred-Languages: en
+Canonical: https://v0.dev/.well-known/security.txt
+Policy: https://v0.dev/security-policy
+Hiring: https://v0.dev/careers
+
+# Security Policy for v0.dev
+
+## Reporting Security Issues
+
+If you believe you have found a security vulnerability in v0.dev, we encourage you to let us know right away. We will investigate all legitimate reports and do our best to quickly fix the problem.
+
+## How to Report a Security Issue
+
+Please send security reports to security@example.com. If possible, please encrypt your message using our PGP key available at https://v0.dev/pgp-key.asc.
+
+When reporting security issues, please provide the following information if possible:
+
+- A description of the vulnerability and its potential impact
+- Steps to reproduce the issue
+- Any special configuration required to reproduce
+- Any proof-of-concept code, if available
+- Any suggested mitigation or remediation steps, if you have them
+
+## Response Time
+
+We aim to acknowledge receipt of your report within 24 hours and will strive to provide more information about our plans for addressing the issue within 72 hours.
+
+## Disclosure Policy
+
+We believe in responsible disclosure. We ask that you do not share the details of any security vulnerabilities with others until we have had the opportunity to research and address the issue.
+
+## Bug Bounty Program
+
+We do not currently operate a bug bounty program, but we are grateful to researchers who take the time to responsibly disclose security concerns.

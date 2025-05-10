@@ -1,11 +1,9 @@
-import { TogetherAI } from "@vercel/ai";
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { togetherai } from '@ai-sdk/togetherai';
+import { groq } from '@ai-sdk/groq';
 import { NextResponse } from "next/server";
 import { z } from "zod";
-
-// Initialize Together AI client
-const together = new TogetherAI({
-  apiKey: process.env.TOGETHER_API_KEY || "",
-});
 
 export const runtime = "edge";
 
@@ -35,6 +33,8 @@ const routeSchema = z.object({
   reason: z.string(),
 });
 
+type TaskRoute = keyof typeof taskRoutes;
+
 /**
  * Router workflow that analyzes input and routes to appropriate model
  */
@@ -57,44 +57,48 @@ Respond with JSON only containing:
 3. "reason": Short explanation for your classification
 `;
 
-    // Get the route classification from the analysis
-    const routeResponse = await together.chat({
+    // Use togetherai for the routing decision
+    const routeResponse = await streamText({
+      model: togetherai("meta-llama/Llama-3.1-8B-Instruct"),
       messages: [{ role: "user", content: routerPrompt }],
-      model: "meta-llama/Llama-3.1-8B-Instruct",
       temperature: 0.2,
-      response_format: { type: "json_object" },
     });
 
-    // Parse the JSON response
-    let routeText = "";
-    for await (const chunk of routeResponse) {
-      routeText += chunk;
-    }
+    // Get the text from stream
+    const routeText = await routeResponse.text;
     
-    let routeJson;
     try {
-      routeJson = JSON.parse(routeText);
+      // Parse the JSON response
+      const routeJson = JSON.parse(routeText);
+      
       // Validate with Zod
       const routeData = routeSchema.parse(routeJson);
       
       // Get the selected route configuration
       const selectedRoute = taskRoutes[routeData.task];
       
+      // Determine which provider to use based on model name
+      let modelProvider;
+      const modelName = selectedRoute.model;
+      
+      if (modelName.includes('llama') || modelName.includes('mistral') || modelName.includes('Gryphe') || modelName.includes('Qwen')) {
+        modelProvider = togetherai(modelName);
+      } else if (modelName.includes('groq') || modelName.includes('gemma')) {
+        modelProvider = groq(modelName);
+      } else {
+        modelProvider = openai(modelName);
+      }
+      
       // Process the input with the selected model
-      const finalResponse = await together.chat({
-        messages: [
-          { role: "system", content: selectedRoute.systemPrompt },
-          { role: "user", content: inputQuery }
-        ],
-        model: selectedRoute.model,
+      const finalResponse = await streamText({
+        model: modelProvider,
+        system: selectedRoute.systemPrompt,
+        messages: [{ role: "user", content: inputQuery }],
         temperature: 0.7,
       });
       
-      // Convert stream to text
-      let result = "";
-      for await (const chunk of finalResponse) {
-        result += chunk;
-      }
+      // Get text from stream
+      const result = await finalResponse.text;
       
       return {
         result,
@@ -107,21 +111,19 @@ Respond with JSON only containing:
       };
     } catch (parseError) {
       console.error("Error parsing route JSON:", parseError);
+      
       // Fallback to default model if parsing fails
-      const fallbackResponse = await together.chat({
+      const fallbackResponse = await streamText({
+        model: togetherai("meta-llama/Llama-3.3-70B-Instruct-Turbo"),
         messages: [{ role: "user", content: inputQuery }],
-        model: "meta-llama/Llama-3.3-70B-Instruct-Turbo",
       });
       
-      let fallbackResult = "";
-      for await (const chunk of fallbackResponse) {
-        fallbackResult += chunk;
-      }
+      const fallbackResult = await fallbackResponse.text;
       
       return {
         result: fallbackResult,
         routing: {
-          task: "fallback",
+          task: "fallback" as TaskRoute,
           model: "meta-llama/Llama-3.3-70B-Instruct-Turbo",
           confidence: 0,
           reason: "Failed to parse routing information"
@@ -136,23 +138,33 @@ Respond with JSON only containing:
 
 export async function POST(req: Request) {
   try {
-    const { query } = await req.json();
+    const { inputQuery } = await req.json();
     
-    if (!query) {
-      return NextResponse.json(
-        { error: "Query is required" },
-        { status: 400 }
-      );
+    if (!inputQuery || typeof inputQuery !== 'string') {
+      return new Response(JSON.stringify({ 
+        error: 'Missing or invalid inputQuery parameter'
+      }), { 
+        status: 400, 
+        headers: { 'Content-Type': 'application/json' } 
+      });
     }
     
-    const result = await routerWorkflow(query);
+    const result = await routerWorkflow(inputQuery);
     
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error("API error:", error);
-    return NextResponse.json(
-      { error: "Failed to process workflow" },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify(result), { 
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error: unknown) {
+    console.error('Error in router workflow POST:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    
+    return new Response(JSON.stringify({ 
+      error: 'Failed to process request',
+      details: errorMessage
+    }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-} 
+}

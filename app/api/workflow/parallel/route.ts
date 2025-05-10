@@ -1,10 +1,8 @@
-import { TogetherAI } from "@vercel/ai";
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { togetherai } from '@ai-sdk/togetherai';
+import { groq } from '@ai-sdk/groq';
 import { NextResponse } from "next/server";
-
-// Initialize Together AI client
-const together = new TogetherAI({
-  apiKey: process.env.TOGETHER_API_KEY || "",
-});
 
 export const runtime = "edge";
 
@@ -15,8 +13,18 @@ const referenceModels = [
   "meta-llama/Llama-3.3-70B-Instruct-Turbo"
 ];
 
-// Default aggregator model
-const aggregatorModel = "meta-llama/Llama-3.3-70B-Instruct-Turbo";
+/**
+ * Helper function to determine the appropriate provider for a model
+ */
+function getModelProvider(modelName: string) {
+  if (modelName.includes('llama') || modelName.includes('mistral') || modelName.includes('deepseek')) {
+    return togetherai(modelName);
+  } else if (modelName.includes('groq') || modelName.includes('gemma')) {
+    return groq(modelName);
+  } else {
+    return openai(modelName);
+  }
+}
 
 /**
  * Parallel workflow that sends a prompt to multiple models and aggregates results
@@ -24,24 +32,30 @@ const aggregatorModel = "meta-llama/Llama-3.3-70B-Instruct-Turbo";
 async function parallelWorkflow(
   prompt: string, 
   models: string[] = referenceModels,
-  aggregatorModel: string = "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+  aggregatorModelName: string = "meta-llama/Llama-3.3-70B-Instruct-Turbo"
 ) {
   try {
     // Run models in parallel
-    const modelPromises = models.map(async (model) => {
-      const response = await together.chat({
-        messages: [{ role: "user", content: prompt }],
-        model,
-        temperature: 0.7,
-      });
-      
-      // Convert stream to text
-      let fullResponse = "";
-      for await (const chunk of response) {
-        fullResponse += chunk;
+    const modelPromises = models.map(async (modelName) => {
+      try {
+        const modelProvider = getModelProvider(modelName);
+        
+        const response = await streamText({
+          model: modelProvider,
+          messages: [{ role: "user", content: prompt }],
+        });
+        
+        // Get text from stream
+        const fullResponse = await response.text;
+        return { model: modelName, response: fullResponse, error: null };
+      } catch (error) {
+        console.error(`Error with model ${modelName}:`, error);
+        return { 
+          model: modelName, 
+          response: `Error: Model ${modelName} failed to generate a response.`, 
+          error: error instanceof Error ? error.message : "Unknown error" 
+        };
       }
-      
-      return { model, response: fullResponse };
     });
     
     // Wait for all models to complete
@@ -69,20 +83,20 @@ ${modelResponsesText}
 Provide a final comprehensive answer that represents the best information from all sources.
 `;
 
-    const aggregatorResponse = await together.chat({
+    // Get the appropriate provider for the aggregator model
+    const aggregatorProvider = getModelProvider(aggregatorModelName);
+    
+    const aggregatorResponse = await streamText({
+      model: aggregatorProvider,
       messages: [{ role: "user", content: aggregatorPrompt }],
-      model: aggregatorModel,
-      temperature: 0.5,
     });
     
-    // Convert stream to text
-    let finalResponse = "";
-    for await (const chunk of aggregatorResponse) {
-      finalResponse += chunk;
-    }
+    // Get text from stream
+    const finalResponse = await aggregatorResponse.text;
     
     return { 
       finalResponse,
+      models,
       modelResponses: modelResults
     };
   } catch (error) {
@@ -93,27 +107,42 @@ Provide a final comprehensive answer that represents the best information from a
 
 export async function POST(req: Request) {
   try {
-    const { prompt, models, aggregator } = await req.json();
+    const { prompt, models = referenceModels, aggregatorModel = "meta-llama/Llama-3.3-70B-Instruct-Turbo" } = await req.json();
     
-    if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt is required" },
-        { status: 400 }
-      );
+    if (!prompt || typeof prompt !== 'string') {
+      return new Response(JSON.stringify({ 
+        error: 'Missing or invalid prompt parameter'
+      }), { 
+        status: 400, 
+        headers: { 'Content-Type': 'application/json' } 
+      });
     }
     
-    const result = await parallelWorkflow(
-      prompt,
-      models || referenceModels,
-      aggregator || aggregatorModel
-    );
+    if (models && (!Array.isArray(models) || models.length === 0)) {
+      return new Response(JSON.stringify({ 
+        error: 'Invalid models parameter: must be a non-empty array of model strings'
+      }), { 
+        status: 400, 
+        headers: { 'Content-Type': 'application/json' } 
+      });
+    }
     
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error("API error:", error);
-    return NextResponse.json(
-      { error: "Failed to process workflow" },
-      { status: 500 }
-    );
+    const result = await parallelWorkflow(prompt, models, aggregatorModel);
+    
+    return new Response(JSON.stringify(result), { 
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error: unknown) {
+    console.error('Error in parallel workflow POST:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    
+    return new Response(JSON.stringify({ 
+      error: 'Failed to process request',
+      details: errorMessage
+    }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-} 
+}

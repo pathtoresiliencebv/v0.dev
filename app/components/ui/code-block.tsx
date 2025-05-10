@@ -2,73 +2,73 @@
 
 import { cn } from "@/lib/utils"
 import React, { useEffect, useState } from "react"
-import { codeToHtml } from "shiki"
 
 export type CodeBlockProps = {
   children?: React.ReactNode
+  language?: string
+  withCopyButton?: boolean
+  withLineNumbers?: boolean
+  code?: string
+  showLineNumbers?: boolean
   className?: string
-} & React.HTMLProps<HTMLDivElement>
-
-function CodeBlock({ children, className, ...props }: CodeBlockProps) {
-  return (
-    <div
-      className={cn(
-        "not-prose flex w-full flex-col overflow-clip border",
-        "border-border bg-card text-card-foreground rounded-xl",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </div>
-  )
 }
 
-export type CodeBlockCodeProps = {
-  code: string
-  language?: string
-  theme?: string
-  className?: string
-} & React.HTMLProps<HTMLDivElement>
-
-function CodeBlockCode({
+export function CodeBlock({
   code,
-  language = "tsx",
-  theme = "github-light",
+  children,
+  language = "typescript",
+  withCopyButton = true,
+  withLineNumbers = true,
+  showLineNumbers = true,
   className,
-  ...props
-}: CodeBlockCodeProps) {
-  const [highlightedHtml, setHighlightedHtml] = useState<string | null>(null)
+}: CodeBlockProps) {
+  const [copied, setCopied] = useState(false)
+  const [codeContent, setCodeContent] = useState<string>("")
 
   useEffect(() => {
-    async function highlight() {
-      if (!code) {
-        setHighlightedHtml("<pre><code></code></pre>")
-        return
-      }
-
-      const html = await codeToHtml(code, { lang: language, theme })
-      setHighlightedHtml(html)
+    if (typeof children === "string") {
+      setCodeContent(children)
+    } else if (code) {
+      setCodeContent(code)
+    } else if (React.isValidElement(children)) {
+      const childrenProps = children.props as any
+      setCodeContent(childrenProps.children || "")
     }
-    highlight()
-  }, [code, language, theme])
+  }, [children, code])
 
-  const classNames = cn(
-    "w-full overflow-x-auto text-[13px] [&>pre]:px-4 [&>pre]:py-4",
-    className
-  )
+  const copyToClipboard = () => {
+    if (codeContent) {
+      navigator.clipboard.writeText(codeContent)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
 
-  // SSR fallback: render plain code if not hydrated yet
-  return highlightedHtml ? (
-    <div
-      className={classNames}
-      dangerouslySetInnerHTML={{ __html: highlightedHtml }}
-      {...props}
-    />
-  ) : (
-    <div className={classNames} {...props}>
-      <pre>
-        <code>{code}</code>
+  const lines = codeContent.split("\n")
+
+  return (
+    <div className="relative w-full">
+      <pre className={cn("relative rounded-lg overflow-hidden bg-zinc-950 text-zinc-50", className)}>
+        {withCopyButton && (
+          <button
+            onClick={copyToClipboard}
+            className="absolute right-3 top-3 z-10 rounded bg-zinc-800 px-2 py-1 text-xs text-zinc-100 hover:bg-zinc-700"
+          >
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        )}
+        <div className="relative p-4 h-full overflow-auto">
+          <code className={`language-${language}`}>
+            {lines.map((line, i) => (
+              <div key={i} className="table-row">
+                {showLineNumbers && withLineNumbers && (
+                  <span className="table-cell pr-4 text-right select-none text-zinc-500">{i + 1}</span>
+                )}
+                <span className="table-cell">{line}</span>
+              </div>
+            ))}
+          </code>
+        </div>
       </pre>
     </div>
   )
@@ -91,4 +91,4 @@ function CodeBlockGroup({
   )
 }
 
-export { CodeBlockGroup, CodeBlockCode, CodeBlock } 
+export { CodeBlockGroup, CodeBlock } 

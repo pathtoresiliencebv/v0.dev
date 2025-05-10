@@ -1,0 +1,29 @@
+# v0.dev AI Usage
+
+This project uses AI models for various features:
+
+- Chat conversations with AI models
+- Code generation and suggestions
+- UI component design and visualization
+- Sequential, parallel, router, and evaluator workflows for AI-based tasks
+
+## Models Used
+
+The application can integrate with the following AI providers:
+- OpenAI (requires API key)
+- TogetherAI (requires API key)
+- Groq (requires API key)
+
+## Responsible AI Usage
+
+We are committed to:
+- Transparency in AI-generated content
+- User privacy and data security
+- Providing clear guidance on API usage and costs
+- Making AI features accessible and usable for all
+
+## Contact
+
+For any questions or concerns about our AI usage, please contact the repository owner.
+
+Last updated: 2024 

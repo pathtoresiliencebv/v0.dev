@@ -122,7 +122,7 @@ export function AnimatedChatInput({
         <Button 
           type="submit" 
           size="icon" 
-          disabled={(!input.trim() && !selectedSuggestion) || isLoading || disabled || (selectedSuggestion && !animationComplete)}
+          disabled={Boolean((!input.trim() && !selectedSuggestion) || isLoading || disabled || (selectedSuggestion && !animationComplete))}
           className="rounded-full h-9 w-9 shrink-0"
         >
           {isLoading ? (

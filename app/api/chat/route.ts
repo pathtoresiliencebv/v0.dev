@@ -1,43 +1,32 @@
-import { TogetherAI, Groq } from "@vercel/ai";
-import { StreamingTextResponse, ChatCompletionMessage } from "ai";
-
-// Initialize AI providers
-const together = new TogetherAI({
-  apiKey: process.env.TOGETHER_API_KEY || "",
-});
-
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY || "",
-});
+import { streamText } from 'ai';
+// import { openai } from '@ai-sdk/openai'; // If you use OpenAI, install @ai-sdk/openai
+// import { togetherai } from '@ai-sdk/togetherai'; // If you use TogetherAI, install @ai-sdk/togetherai
+// import { groq } from '@ai-sdk/groq'; // If you use Groq, install @ai-sdk/groq
 
 export const runtime = "edge";
 
 export async function POST(req: Request) {
-  try {
-    const { messages, provider = "together", model } = await req.json();
+  const { messages, provider = 'openai', model = 'gpt-4o' } = await req.json();
 
-    // Select provider based on request
-    const selectedProvider = provider === "groq" ? groq : together;
-    
-    // Select model based on provider or use default
-    const selectedModel = model || 
-      (provider === "groq" ? "llama3-70b-8192" : "meta-llama/Llama-3.3-70B-Instruct-Turbo");
+  // Example: Use OpenAI by default, but you can switch based on 'provider'
+  // You must install the provider package and import it above
+  // For demonstration, we'll just show OpenAI usage
+  // Uncomment and adjust as needed for your providers
 
-    // Generate stream from the selected provider
-    const response = await selectedProvider.chat({
-      messages: messages as ChatCompletionMessage[],
-      model: selectedModel,
-      temperature: 0.7,
-      max_tokens: 1000,
-    });
+  // let modelProvider;
+  // if (provider === 'openai') modelProvider = openai(model);
+  // else if (provider === 'togetherai') modelProvider = togetherai(model);
+  // else if (provider === 'groq') modelProvider = groq(model);
+  // else throw new Error('Unknown provider');
 
-    // Return streaming response
-    return new StreamingTextResponse(response);
-  } catch (error) {
-    console.error("Chat API error:", error);
-    return new Response(JSON.stringify({ error: "Failed to generate response" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
+  // const result = streamText({
+  //   model: modelProvider,
+  //   system: 'You are a helpful assistant.',
+  //   messages,
+  // });
+
+  // return result.toDataStreamResponse();
+
+  // Placeholder response for now
+  return new Response(JSON.stringify({ error: 'Provider integration required. See route.ts for instructions.' }), { status: 501 });
 } 

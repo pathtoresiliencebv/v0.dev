@@ -1,16 +1,10 @@
-import { NextResponse } from "next/server"
-import { delay, getModelProvider } from "@/lib/utils"
-import Together from "together-ai";
-import Groq from "groq-sdk";
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { togetherai } from '@ai-sdk/togetherai';
+import { groq } from '@ai-sdk/groq';
+import { NextResponse } from "next/server";
 
-// Initialize clients
-const together = new Together({
-  apiKey: process.env.TOGETHER_API_KEY,
-});
-
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+export const runtime = "edge";
 
 // Define interface for chat messages
 interface ChatMessage {
@@ -22,75 +16,103 @@ interface ChatRequest {
   messages: ChatMessage[];
   model?: string;
   temperature?: number;
-  max_tokens?: number;
+  systemPrompt?: string;
+}
+
+/**
+ * Helper function to determine the appropriate provider for a model
+ */
+function getModelProvider(modelName: string) {
+  if (modelName.includes('llama') || modelName.includes('mistral') || 
+      modelName.includes('deepseek') || modelName.includes('qwen') ||
+      modelName.includes('togethercomputer') || modelName.includes('Qwen') ||
+      modelName.includes('Mixtral') || modelName.includes('nvidia')) {
+    return togetherai(modelName);
+  } else if (modelName.includes('groq') || modelName.includes('gemma') || 
+             modelName.includes('claude') || modelName.includes('llama3') || 
+             modelName.includes('llama-3')) {
+    return groq(modelName);
+  } else {
+    return openai(modelName);
+  }
 }
 
 export async function POST(req: Request) {
   try {
     // Parse request body
     const body = await req.json() as ChatRequest;
-    const { messages, model = "meta-llama/Llama-3.1-8B-Instruct-Turbo-Free", temperature = 0.7, max_tokens = 1024 } = body;
+    const { 
+      messages, 
+      model = "meta-llama/Llama-3.1-8B-Instruct-Turbo-Free", 
+      temperature = 0.7,
+      systemPrompt
+    } = body;
 
-    // Determine which provider to use based on the model name
-    const provider = getModelProvider(model);
-    
-    let responseText: string;
-
-    // Route to the appropriate provider API
-    if (provider === "together") {
-      // Convert messages to Together AI format
-      const togetherMessages = messages.map(msg => ({
-        role: msg.role as "system" | "user" | "assistant",
-        content: msg.content
-      }));
-      
-      // Use Together AI API
-      const response = await together.chat.completions.create({
-        model,
-        messages: togetherMessages,
-        temperature,
-        max_tokens,
-      });
-      responseText = response.choices[0]?.message?.content || "No response generated";
-    } else if (provider === "groq") {
-      // Convert messages to Groq format
-      const groqMessages = messages.map(msg => ({
-        role: msg.role as "system" | "user" | "assistant",
-        content: msg.content
-      }));
-      
-      // Use Groq API
-      const response = await groq.chat.completions.create({
-        model,
-        messages: groqMessages,
-        temperature,
-        max_tokens,
-      });
-      responseText = response.choices[0]?.message?.content || "No response generated";
-    } else {
-      // Default fallback to Together AI with default model
-      console.warn(`Unknown model provider for "${model}", falling back to Together AI default model`);
-      
-      // Convert messages to Together AI format
-      const togetherMessages = messages.map(msg => ({
-        role: msg.role as "system" | "user" | "assistant",
-        content: msg.content
-      }));
-      
-      const response = await together.chat.completions.create({
-        model: "meta-llama/Llama-3.1-8B-Instruct-Turbo-Free",
-        messages: togetherMessages,
-        temperature,
-        max_tokens,
-      });
-      responseText = response.choices[0]?.message?.content || "No response generated";
+    // Validate messages
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ 
+        error: "Invalid or missing messages parameter" 
+      }, { status: 400 });
     }
-
-    // Return the formatted response
-    return NextResponse.json({
-      response: responseText,
-      id: crypto.randomUUID(),
-    });
+    
+    try {
+      // Get the appropriate provider for the model
+      const modelProvider = getModelProvider(model);
+      
+      // Format for streamText
+      const formattedMessages = messages.map(msg => ({
+        role: msg.role as "system" | "user" | "assistant",
+        content: msg.content
+      }));
+      
+      // Use streamText for response
+      const response = await streamText({
+        model: modelProvider,
+        messages: formattedMessages,
+        system: systemPrompt,
+        temperature
+      });
+      
+      // Get the full text response
+      const responseText = await response.text;
+      
+      // Return the formatted response
+      return NextResponse.json({
+        response: responseText,
+        id: crypto.randomUUID(),
+      });
+    } catch (error) {
+      console.error("Error with AI provider:", error);
+      
+      // Try with a fallback model if the original fails
+      try {
+        console.log("Attempting fallback to Together AI default model...");
+        const fallbackProvider = togetherai("meta-llama/Llama-3.1-8B-Instruct-Turbo-Free");
+        
+        const formattedMessages = messages.map(msg => ({
+          role: msg.role as "system" | "user" | "assistant",
+          content: msg.content
+        }));
+        
+        const fallbackResponse = await streamText({
+          model: fallbackProvider,
+          messages: formattedMessages,
+          system: systemPrompt,
+          temperature
+        });
+        
+        const fallbackText = await fallbackResponse.text;
+        
+        return NextResponse.json({
+          response: fallbackText,
+          id: crypto.randomUUID(),
+          fallback: true,
+          original_error: error instanceof Error ? error.message : "Unknown error with original model"
+        });
+      } catch (fallbackError) {
+        throw error; // If fallback fails too, throw the original error
+      }
+    }
   } catch (error) {
     console.error("Error in chat API:", error);
     

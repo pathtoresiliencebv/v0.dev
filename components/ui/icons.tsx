@@ -2,6 +2,7 @@ import * as React from "react"
 
 // A collection of Geist icons used across the application
 // Based on Vercel's Geist Design System: https://vercel.com/geist/icons
+// Added additional icons from Lucide for modern UI components
 
 // User related icons
 export function UserIcon({ className = "h-4 w-4" }: { className?: string }) {
@@ -610,27 +611,6 @@ export function ExternalLinkIcon({ className = "h-4 w-4" }: { className?: string
   )
 }
 
-export function V0Logo({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <svg
-      height="16"
-      strokeLinejoin="round"
-      viewBox="0 0 40 20"
-      width="16"
-      className={className}
-    >
-      <title>Logo v0</title>
-      <path
-        clipRule="evenodd"
-        d="M23.3919 0H32.9188C36.7819 0 39.9136 3.13165 39.9136 6.99475V16.0805H36.0006V6.99475C36.0006 6.90167 35.9969 6.80925 35.9898 6.71766L26.4628 16.079C26.4949 16.08 26.5272 16.0805 26.5595 16.0805H36.0006V19.7762H26.5595C22.6964 19.7762 19.4788 16.6139 19.4788 12.7508V3.68923H23.3919V12.7508C23.3919 12.9253 23.4054 13.0977 23.4316 13.2668L33.1682 3.6995C33.0861 3.6927 33.003 3.68923 32.9188 3.68923H23.3919V0Z"
-        fill="currentColor"
-        fillRule="evenodd"
-      ></path>
-      <path d="M13.7688 19.0956L0 3.68759H5.53933L13.6231 12.7337V3.68759H17.7535V17.5746C17.7535 19.6705 15.1654 20.6584 13.7688 19.0956Z" fill="currentColor"></path>
-    </svg>
-  );
-}
-
 export function ChevronRightIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg
@@ -675,4 +655,78 @@ export function XIcon({ className = "h-4 w-4" }: { className?: string }) {
       <path d="M4 12L12 4M4 4l8 8" />
     </svg>
   )
-} 
+}
+
+export function V0Logo({ className = "w-6 h-6" }: { className?: string }) {
+  return (
+    <svg
+      height="16"
+      strokeLinejoin="round"
+      viewBox="0 0 40 20"
+      width="16"
+      className={className}
+    >
+      <title>Logo v0</title>
+      <path
+        clipRule="evenodd"
+        d="M23.3919 0H32.9188C36.7819 0 39.9136 3.13165 39.9136 6.99475V16.0805H36.0006V6.99475C36.0006 6.90167 35.9969 6.80925 35.9898 6.71766L26.4628 16.079C26.4949 16.08 26.5272 16.0805 26.5595 16.0805H36.0006V19.7762H26.5595C22.6964 19.7762 19.4788 16.6139 19.4788 12.7508V3.68923H23.3919V12.7508C23.3919 12.9253 23.4054 13.0977 23.4316 13.2668L33.1682 3.6995C33.0861 3.6927 33.003 3.68923 32.9188 3.68923H23.3919V0Z"
+        fill="currentColor"
+        fillRule="evenodd"
+      ></path>
+      <path d="M13.7688 19.0956L0 3.68759H5.53933L13.6231 12.7337V3.68759H17.7535V17.5746C17.7535 19.6705 15.1654 20.6584 13.7688 19.0956Z" fill="currentColor"></path>
+    </svg>
+  );
+}
+
+export function PanelRightIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      className={className}
+    >
+      <rect x="1.5" y="1.5" width="13" height="13" rx="1" />
+      <path d="M9.5 1.5v13" />
+    </svg>
+  )
+}
+
+export function FolderIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      className={className}
+    >
+      <path d="M14.5 13.5h-13V3c0-.27.22-.5.5-.5h4.36a.5.5 0 0 1 .5.34l.14.66h7c.28 0 .5.23.5.5v9.5Z" />
+    </svg>
+  )
+}
+
+export function SplitIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      className={className}
+    >
+      <rect x="1.5" y="1.5" width="13" height="13" rx="1" />
+      <path d="M8 1.5v13" />
+    </svg>
+  )
+}

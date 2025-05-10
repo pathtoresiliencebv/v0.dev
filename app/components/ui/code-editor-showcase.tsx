@@ -7,8 +7,10 @@ import { AnimatedChatInput } from '@/app/components/ui/animated-chat-input'
 import { ChatMessage } from '@/app/components/ui/chat-message'
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { PanelRightIcon, LayoutPanelTopIcon, XIcon } from '@/components/ui/icons'
-import { CodeBlock, CodeBlockCode } from '@/app/components/ui/code-block'
+import { PanelRightIcon, XIcon } from '@/components/ui/icons'
+import { CodeBlock } from '@/app/components/ui/code-block'
+import { Layout } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 // Sample file structure for the demo
 const sampleFiles = [
@@ -168,6 +170,7 @@ export function CodeEditorShowcase() {
     }
   ])
   const [sidebarVisible, setSidebarVisible] = React.useState(true)
+  const [viewMode, setViewMode] = React.useState<'vertical' | 'horizontal'>('vertical')
   const [messages, setMessages] = React.useState<Array<{id: string, role: 'user' | 'assistant', content: string}>>([
     {
       id: '1',
@@ -180,7 +183,7 @@ export function CodeEditorShowcase() {
   const flattenedFiles = React.useMemo(() => {
     const flattened: Record<string, {id: string, name: string, content: string, extension?: string}> = {}
     
-    const processNode = (node: typeof sampleFiles[0]) => {
+    const processNode = (node: any) => {
       if (node.type === 'file') {
         flattened[node.id] = {
           id: node.id,
@@ -287,6 +290,15 @@ function Example() {
               <PanelRightIcon className="h-4 w-4 mr-2" />
               {sidebarVisible ? 'Hide' : 'Show'} Files
             </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              onClick={() => setViewMode(viewMode === 'vertical' ? 'horizontal' : 'vertical')}
+            >
+              <Layout className="h-4 w-4" />
+              <span className="sr-only">Change Layout</span>
+            </Button>
           </div>
         </div>
       </CardHeader>
@@ -335,4 +347,4 @@ function Example() {
       </div>
     </Card>
   )
-} 
+}

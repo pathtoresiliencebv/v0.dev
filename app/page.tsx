@@ -14,21 +14,21 @@ export default function Home() {
               <div className="flex items-center gap-2 mb-6">
                 <V0Logo className="w-10 h-10" />
                 <h1 className="text-3xl font-bold tracking-tight">v0</h1>
-              </div>
+          </div>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4">
                 Your AI Pair Programmer
               </h2>
               <p className="text-xl text-muted-foreground mb-8">
                 v0 is a pair programmer that lets you describe your ideas in natural language 
                 and generates both the code and UI for your project.
-              </p>
+          </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link href="/project/new">
                   <Button size="lg" className="w-full sm:w-auto">Get Started</Button>
                 </Link>
                 <Link href="/faq">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto">Learn More</Button>
-                </Link>
+              </Link>
               </div>
             </div>
             <div className="relative rounded-xl overflow-hidden border shadow-xl bg-zinc-950">
@@ -351,8 +351,8 @@ export default function Home() {
             <Link href="#">
               <Button variant="outline">Vercel Community</Button>
             </Link>
-          </div>
         </div>
+      </div>
       </section>
     </div>
   );

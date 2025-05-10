@@ -1,11 +1,9 @@
-import { TogetherAI } from "@vercel/ai";
+import { streamText } from 'ai';
+import { openai } from '@ai-sdk/openai';
+import { togetherai } from '@ai-sdk/togetherai';
+import { groq } from '@ai-sdk/groq';
 import { NextResponse } from "next/server";
 import { z } from "zod";
-
-// Initialize Together AI client
-const together = new TogetherAI({
-  apiKey: process.env.TOGETHER_API_KEY || "",
-});
 
 export const runtime = "edge";
 
@@ -15,6 +13,8 @@ const evaluationSchema = z.object({
   feedback: z.string(),
   passed: z.boolean(),
 });
+
+type EvaluationResult = z.infer<typeof evaluationSchema>;
 
 /**
  * Evaluator workflow that keeps improving responses until they meet criteria
@@ -27,46 +27,51 @@ async function evaluatorWorkflow(
 ) {
   try {
     // Store the iterations
-    const iterations = [];
+    const iterations: Array<{
+      iteration: number;
+      response: string;
+      evaluation: EvaluationResult;
+    }> = [];
+    
     let currentResponse = "";
-    let evaluationResult = null;
+    let evaluationResult: EvaluationResult | null = null;
     let iteration = 0;
     
-    // Generation system prompt
-    const generationPrompt = `
+    // Initialize the generation system prompt
+    let generationPrompt = `
 You are a helpful assistant tasked with completing the following:
 
 ${task}
 
-Please complete this task to the best of your ability.
-${iteration > 0 ? `
-Previous attempt: 
-${currentResponse}
-
-Feedback on previous attempt:
-${evaluationResult?.feedback}
-
-Improve your response based on the feedback.` : ''}
-`;
+Please complete this task to the best of your ability.`;
 
     // Iterate until we have a passing response or reach max iterations
     while (iteration < maxIterations) {
       console.log(`Iteration ${iteration + 1}`);
       
-      // Generate a response
-      const generationResponse = await together.chat({
-        messages: [
-          { role: "system", content: generationPrompt },
-          { role: "user", content: task }
-        ],
-        model,
-        temperature: 0.7,
-      });
+      // Determine which AI provider to use based on model name
+      let modelProvider;
+      if (model.includes('llama') || model.includes('mistral')) {
+        modelProvider = togetherai(model);
+      } else if (model.includes('groq') || model.includes('llama-3') || model.includes('mixtral')) {
+        modelProvider = groq(model);
+      } else {
+        modelProvider = openai(model);
+      }
       
-      // Convert stream to text
-      currentResponse = "";
-      for await (const chunk of generationResponse) {
-        currentResponse += chunk;
+      try {
+        // Generate a response
+        const response = await streamText({
+          model: modelProvider,
+          system: generationPrompt,
+          messages: [{ role: "user", content: task }]
+        });
+        
+        // Convert stream to text
+        currentResponse = await response.text;
+      } catch (error) {
+        console.error("Error generating response:", error);
+        throw new Error("Failed to generate response");
       }
       
       // Evaluate the response
@@ -90,21 +95,18 @@ Respond with JSON only containing:
 3. "passed": Boolean indicating whether the response meets the criteria
 `;
 
-      const evaluationResponse = await together.chat({
-        messages: [{ role: "user", content: evaluationPrompt }],
-        model: "meta-llama/Llama-3.1-8B-Instruct",
-        temperature: 0.2,
-        response_format: { type: "json_object" },
-      });
-      
-      // Convert evaluation stream to text
-      let evaluationText = "";
-      for await (const chunk of evaluationResponse) {
-        evaluationText += chunk;
-      }
-      
       try {
+        // Use togetherai for evaluation
+        const evaluationResponse = await streamText({
+          model: togetherai("meta-llama/Llama-3.1-8B-Instruct"),
+          messages: [{ role: "user", content: evaluationPrompt }]
+        });
+        
+        // Get the raw text
+        const evaluationText = await evaluationResponse.text;
         const evaluationJson = JSON.parse(evaluationText);
+        
+        // Parse and validate JSON
         evaluationResult = evaluationSchema.parse(evaluationJson);
         
         // Record this iteration
@@ -120,7 +122,7 @@ Respond with JSON only containing:
         }
         
         // Otherwise, update the generation prompt with feedback for the next iteration
-        const generationPrompt = `
+        generationPrompt = `
 You are a helpful assistant tasked with completing the following:
 
 ${task}
@@ -133,10 +135,10 @@ ${currentResponse}
 Feedback on previous attempt:
 ${evaluationResult.feedback}
 
-Improve your response based on the feedback.
-`;
+Improve your response based on the feedback.`;
+        
       } catch (error) {
-        console.error("Error parsing evaluation JSON:", error);
+        console.error("Error parsing evaluation:", error);
         break;
       }
       
@@ -157,28 +159,33 @@ Improve your response based on the feedback.
 
 export async function POST(req: Request) {
   try {
-    const { task, criteria, maxIterations, model } = await req.json();
+    const { task, criteria, maxIterations = 3, model = 'meta-llama/Llama-3.3-70B-Instruct-Turbo' } = await req.json();
     
     if (!task || !criteria) {
-      return NextResponse.json(
-        { error: "Task and criteria are required" },
-        { status: 400 }
-      );
+      return new Response(JSON.stringify({ 
+        error: 'Missing required parameters: task and criteria are required' 
+      }), { 
+        status: 400, 
+        headers: { 'Content-Type': 'application/json' } 
+      });
     }
     
-    const result = await evaluatorWorkflow(
-      task,
-      criteria,
-      maxIterations || 3,
-      model || "meta-llama/Llama-3.3-70B-Instruct-Turbo"
-    );
+    const result = await evaluatorWorkflow(task, criteria, maxIterations, model);
     
-    return NextResponse.json(result);
-  } catch (error) {
-    console.error("API error:", error);
-    return NextResponse.json(
-      { error: "Failed to process workflow" },
-      { status: 500 }
-    );
+    return new Response(JSON.stringify(result), { 
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error: unknown) {
+    console.error('Error in evaluator POST:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    
+    return new Response(JSON.stringify({ 
+      error: 'Failed to process request',
+      details: errorMessage
+    }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
-} 
+}
