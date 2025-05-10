@@ -43,6 +43,46 @@ export default function ComponentsShowcasePage() {
             </section>
 
             <section>
+              <h2 className="text-2xl font-semibold mb-6">v0.dev Interface Recreation</h2>
+              <div className="flex flex-col gap-6">
+                <p className="text-muted-foreground">
+                  A pixel-perfect recreation of the v0.dev interface with dark theme, code editor, file explorer, and AI chat integration.
+                </p>
+                <Link href="/components-showcase/v0-interface">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    View v0.dev Interface Demo
+                  </Button>
+                </Link>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-6">GitHub Copilot Chat</h2>
+              <div className="flex flex-col gap-6">
+                <p className="text-muted-foreground">
+                  A recreation of the GitHub Copilot Chat interface as seen in modern code editors, featuring code search, syntax highlighting, and AI assistance.
+                </p>
+                <Link href="/components-showcase/github-copilot">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    View GitHub Copilot Demo
+                  </Button>
+                </Link>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-semibold mb-6">AI Chat with Providers</h2>
+              <div className="flex flex-col gap-6">
+                <p className="text-muted-foreground">Beautiful chat interface with integration for multiple AI SDK providers.</p>
+                <Link href="/components-showcase/ai-chat">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    View AI Chat Demo
+                  </Button>
+                </Link>
+              </div>
+            </section>
+
+            <section>
               <h2 className="text-2xl font-semibold mb-6">Expandable Tabs</h2>
               <div className="bg-gradient-to-br from-neutral-950 to-black p-8 rounded-lg shadow-2xl">
                 <ExpandableTabsShowcase />

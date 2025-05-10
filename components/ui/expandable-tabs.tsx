@@ -26,7 +26,7 @@ interface ExpandableTabsProps {
 }
 
 // Custom hook to replace useOnClickOutside from usehooks-ts
-function useClickOutside(ref: React.RefObject<HTMLElement>, handler: () => void) {
+function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () => void) {
   React.useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
       if (!ref.current || ref.current.contains(event.target as Node)) {
@@ -106,4 +106,4 @@ export function ExpandableTabs({
       })}
     </div>
   );
-} 
+}

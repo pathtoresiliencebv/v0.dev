@@ -8,7 +8,7 @@ import { ChatMessage } from '@/app/components/ui/chat-message'
 import { CardTitle, CardDescription, CardHeader, CardContent, Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { PanelRightIcon, XIcon } from '@/components/ui/icons'
-import { CodeBlock } from '@/app/components/ui/code-block'
+import CodeBlock from '@/app/components/ui/code-block'
 import { Layout } from 'lucide-react'
 import { cn } from '@/lib/utils'
 

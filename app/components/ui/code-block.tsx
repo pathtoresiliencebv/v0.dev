@@ -13,7 +13,7 @@ export type CodeBlockProps = {
   className?: string
 }
 
-export function CodeBlock({
+export default function CodeBlock({
   code,
   children,
   language = "typescript",
@@ -91,4 +91,4 @@ function CodeBlockGroup({
   )
 }
 
-export { CodeBlockGroup, CodeBlock } 
+export { CodeBlockGroup }
