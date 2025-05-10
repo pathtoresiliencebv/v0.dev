@@ -502,6 +502,7 @@ export function AnimatedAIChat({ defaultModel = availableModels[0], apiKey }: An
                                             <button 
                                                 onClick={() => removeAttachment(index)}
                                                 className="text-white/40 hover:text-white transition-colors"
+                                                aria-label={`Remove attachment ${file}`}
                                             >
                                                 <XIcon className="w-3 h-3" />
                                             </button>
